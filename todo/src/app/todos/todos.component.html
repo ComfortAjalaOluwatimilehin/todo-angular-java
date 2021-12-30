@@ -1,0 +1,43 @@
+<div *ngIf="selectedTodo">
+  <label for="title">Name</label>
+  <input id="title" [(ngModel)]="selectedTodo.title" />
+  <br />
+  <br />
+  <label for="content">Content</label>
+  <textarea id="content" [(ngModel)]="selectedTodo.content"></textarea>
+  <br />
+  <br />
+  <label for="done">Done</label>
+  <input id="done" [(ngModel)]="selectedTodo.done" type="checkbox"  />
+  <br />
+  <br />
+  <button (click)="updateTodo()">Save</button>
+  <button (click)="deleteSelectedTodo()">Delete</button>
+  <button (click)="cancelSelectedTodo()">Cancel</button>
+</div>
+<div *ngIf="(todos$ | async) as todos">
+  <ul>
+    <li *ngFor="let todo of todos" (click)="selectTodo(todo)" [class.selectedTodo]="selectedTodo === todo" [class.todoIsDone]="todo.done">
+      {{ todo.title }}
+    </li>
+  </ul>
+  <div>
+    <h1>Create new Todo</h1>
+    <label for="title">Name</label>
+    <input id="title" [(ngModel)]="newTodo.title" />
+    <br />
+    <br />
+    <label for="content">Content</label>
+    <textarea id="content" [(ngModel)]="newTodo.content"></textarea>
+    <br />
+    <br />
+    <label for="done">Done</label>
+    <input id="done" [(ngModel)]="newTodo.done" type="checkbox" />
+    <br />
+    <br />
+    <button (click)="saveNewTodo()">Save</button>
+  </div>
+</div>
+<div *ngIf="!todos$">
+  Loading
+</div>
