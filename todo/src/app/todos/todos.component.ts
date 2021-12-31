@@ -17,6 +17,7 @@ export class TodosComponent implements OnInit {
   }
   selectTodo(todo: ITodo) {
     this.selectedTodo = todo;
+    this.newTodo  = {...todo}
   }
   cancelSelectedTodo(): void {
     this.selectedTodo = undefined;
@@ -31,9 +32,10 @@ export class TodosComponent implements OnInit {
   }
   updateTodo() {
     if (this.selectedTodo) {
-      const body: Partial<ITodo> = { ...this.selectedTodo };
+      const body: Partial<ITodo> = { ...this.newTodo };
       this.service.updateTodo(this.selectedTodo.id, body).subscribe(() => {
         this.selectedTodo = undefined;
+        this.newTodo =  { done: false } as ITodo;
         this.getTodos();
       });
     }
